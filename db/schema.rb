@@ -18,9 +18,13 @@ ActiveRecord::Schema.define(version: 2019_11_16_095955) do
   create_table "urls", force: :cascade do |t|
     t.string "url"
     t.boolean "processed"
-    t.string "last_response_status"
+    t.integer "processing_time"
+    t.string "response_http_status"
+    t.boolean "success", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["processed"], name: "index_urls_on_processed"
+    t.index ["updated_at"], name: "index_urls_on_updated_at"
   end
 
 end
