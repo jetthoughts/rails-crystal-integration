@@ -7,9 +7,11 @@ class ScheduleUrlCheckService
     @url = url
   end
 
-  WORKER_NAME = 'Broolik::Worker::URLChecker'
-
   def perform
-    Sidekiq::Client.push('class' => WORKER_NAME, 'args' => [@url], 'queue' => 'worker.cr')
+    Sidekiq::Client.push(
+      'class' => 'Broolik::Worker::URLChecker',
+      'args' => [@url],
+      'queue' => 'worker.cr'
+    )
   end
 end
